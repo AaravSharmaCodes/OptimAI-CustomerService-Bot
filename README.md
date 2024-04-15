@@ -9,11 +9,40 @@ OptimAI Customer Service Bot is a project developed on the pea.ai platform, aimi
 - ChatGPT for information cleaning to provide high-quality user support services
 - Rapid, accurate problem-solving and technical support for users
 
-## Usage
+## Prepare Data
 
-1. Clone this repository to your local environment
-2. Configure the pea.ai platform and Optimism's official docs information
-3. Start the AI customer service bot and enjoy intelligent user support services
+### 1. Download Chat Records from Discord
+
+Use [DiscordChatExporter](https://github.com/Tyrrrz/DiscordChatExporter) 
+
+```bash
+docker run --rm -it -v ~/discord:/out tyrrrz/discordchatexporter:stable export -t DISCORD_TOKEN -c 667044844366987296 
+```
+docs
+https://github.com/Tyrrrz/DiscordChatExporter/blob/master/.docs/Token-and-IDs.md
+
+### 2. Clean Chat Records
+The downloaded chat records are in HTML format, and we need to convert them to a text (txt) format.
+
+
+```bash
+python3 clean_discord_chat.py
+```
+
+The result will be saved in `data/discord_chat.txt`.
+
+## Create Pea GPT
+Please follow the instructions in the [PeaAI documentation](https://docs.pea.ai/docs/create-custom-gpt) to create a Pea GPT service.
+
+Upload discord_chat.txt to the DataSet, and Pea GPT will automatically train on it. Once the training is complete, you can start using it.
+
+You can also add websites like https://docs.optimism.io/ to the DataSet to provide Pea GPT with more information.
+
+## Usage
+Go to https://app.pea.ai/explore/all?search=OptimAI, search for "OptimAI," and then Subscribe to start chatting.
+
+You can click on recommended questions or ask anything you like.
+
 
 
 ## License
